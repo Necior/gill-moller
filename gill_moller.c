@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
     double a = 1.0/3.0, result;
     clock_t tic, toc;
     printf("n,Gill-Moller (time),Gill-Moller (result),Naive (time),Naive (result)\n");
-    for(int i = 5; i <= atoi(argv[1]); ++i) {
+    for(int i = 0; i <= atoi(argv[1]); ++i) {
         printf("%d,", i);
         long n = 3 * pow(10, i);
 
