@@ -22,14 +22,24 @@ double naive(long n, double a) {
     return result;
 }
 
+void print_csv_header(void) {
+    printf("n,Gill-Moller (time),Gill-Moller (result),Naive (time),Naive (result)\n");
+}
+
+void print_csv_row(clock_t tic, clock_t toc, double result) {
+    printf("%f,%f,", (double)(toc - tic) / CLOCKS_PER_SEC, result);
+}
+
 int main(int argc, char **argv) {
     if(argc < 2 || !strcmp(argv[1], "--help")) {
         printf("Usage: %s NUM\n", argv[0]);
         return 1;
     }
+
     double a = 1.0/3.0, result;
     clock_t tic, toc;
-    printf("n,Gill-Moller (time),Gill-Moller (result),Naive (time),Naive (result)\n");
+    print_csv_header();
+
     for(int i = 0; i <= atoi(argv[1]); ++i) {
         printf("%d,", i);
         long n = 3 * pow(10, i);
@@ -37,12 +47,14 @@ int main(int argc, char **argv) {
         tic = clock();
         result = gill_moller(n, a);
         toc = clock();
-        printf("%f,%f,", (double)(toc - tic) / CLOCKS_PER_SEC, result);
+        print_csv_row(tic, toc, result);
 
         tic = clock();
         result = naive(n, a);
         toc = clock();
-        printf("%f,%f\n", (double)(toc - tic) / CLOCKS_PER_SEC, result);
+        print_csv_row(tic, toc, result);
+
+        printf("\n");
     }
 
     return 0;
